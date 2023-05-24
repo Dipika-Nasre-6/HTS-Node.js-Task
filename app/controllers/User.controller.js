@@ -25,27 +25,6 @@ const signUp = async (req, res) => {
       console.log("Firebase - Error creating new user:", error);
     });
 
-  // MongoDB Sign-up
-  const userExists = await User.findOne({ email: req.body.email });
-
-  if (userExists) {
-    return res.send(
-      "Email already exists! Please try with a different email address."
-    );
-  }
-
-  // Hash the password
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  // Create user in MongoDB with hashed password
-  const user = await User.create({
-    email,
-    password: hashedPassword,
-    first_name,
-    last_name,
-  });
-
   return res.status(200).json({ message: "User signed up successfully" });
 };
 
@@ -70,20 +49,6 @@ const signIn = async (req, res) => {
     .catch((error) => {
       console.log("Firebase - Error signing in:", error);
     });
-
-  // MongoDB Sign-in
-  const user = await User.findOne({ email: req.body.email });
-
-  if (!user) {
-    return res.status(401).json({ error: "Invalid Credentials" });
-  }
-
-  // Compare passwords
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordValid) {
-    return res.status(401).json({ error: "Invalid credentials" });
-  }
 
   return res.status(200).json({ message: "User signed in successfully" });
 };
