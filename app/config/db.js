@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://localhost:27017/HTS_Nodejs';
-
+const mongoURI = 'mongodb://localhost:27017/HTS_Nodejs' || process.env.DATABASE;
 const connectToMongo = async () => {
   try {
     await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
