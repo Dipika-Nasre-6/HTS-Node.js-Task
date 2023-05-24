@@ -1,5 +1,7 @@
+require("dotenv").config();
+const DATABASE_URI = process.env.DATABASE_URI;
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://localhost:27017/HTS_Nodejs' || process.env.DATABASE;
+const mongoURI = `mongodb://${DATABASE_URI}` ;
 const connectToMongo = async () => {
   try {
     await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
