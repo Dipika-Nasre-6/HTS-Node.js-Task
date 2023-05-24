@@ -14,5 +14,5 @@ app.use(express.json())
 app.use('/api/user', require('./app/routes/User.routes'));
 
 app.listen(PORT, () => {
-  console.log(`App listening on PORT ${PORT}`);
+  console.log(`App listening on PORT ${PORT}`, process.env.DATABASE);
 })
