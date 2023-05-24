@@ -5,7 +5,7 @@ const express = require('express')
 connectToMongo();
 
 const app = express()
-const port = 5000
+const PORT = process.env.PORT || 5000
 
 app.use(cors());
 app.use(express.json())
@@ -13,6 +13,6 @@ app.use(express.json())
 // Available Routes
 app.use('/api/user', require('./app/routes/User.routes'));
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`App listening on PORT ${PORT}`)
 })
