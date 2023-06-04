@@ -26,7 +26,9 @@ const signUp = async (req, res) => {
     });
 
   // MongoDB Sign-up
-  const userExists = await User.findOne({ email: req.body.email });
+  const userExists = await User.findOne({ email: req.body.email }, null, { maxTimeMS: 20000 }, function(err, user) {
+    // Handle the result or error here
+  });
 
   if (userExists) {
     return res.send(
@@ -72,7 +74,9 @@ const signIn = async (req, res) => {
     });
 
   // MongoDB Sign-in
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: req.body.email }, null, { maxTimeMS: 20000 }, function(err, user) {
+    // Handle the result or error here
+  });
 
   if (!user) {
     return res.status(401).json({ error: "Invalid Credentials" });
